@@ -209,13 +209,7 @@ clip2 = VideoFileClip('test_videos/solidYellowLeft.mp4')
 yellow_clip = clip2.fl_image(process_image)
 yellow_clip.write_videofile(yellow_output, audio=False)
 ```
-
-[![View the output video](https://img.youtube.com/vi/IKWfdrJ3A0M/0.jpg)](https://www.youtube.com/watch?v=IKWfdrJ3A0M)
-
-### Abc
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/IKWfdrJ3A0M" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-</iframe>
+[![View the output video](https://img.youtube.com/vi/IKWfdrJ3A0M/maxresdefault.jpg)](https://www.youtube.com/watch?v=IKWfdrJ3A0M "test_videos_output/solidYellowLeft.mp4")
 
 ## **Potential shortcomings with my current Pipeline**
 
