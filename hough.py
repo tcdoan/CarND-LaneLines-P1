@@ -128,11 +128,22 @@ class Hough:
         cv.imshow('edges', self.edge_img)
         cv.imshow('hough', self.combo)
 
-# Return
+# Return few statistics about line segments
 # - Number of line segments
 # - Distance of 1 shortest segment
 # - Distance of 2 longest  segments
 # - Ratio of sum(2 longest segments) over number of line segments
+#
+# NOTE: this is the function you might want to use as a starting point once you want to 
+#   average/extrapolate the line segments you detect to map out the full
+#   extent of the lane (going from the result shown in raw-lines-example.mp4
+#   to that shown in P1_example.mp4).  
+#    
+#    Think about things like separating line segments by their 
+#    slope ((y2-y1)/(x2-x1)) to decide which segments are part of the left
+#    line vs. the right line.  Then, you can average the position of each of 
+#    the lines and extrapolate to the top and bottom of the lane.
+    
 def lines_stats(lines):
     data = [] 
     for line in lines:
