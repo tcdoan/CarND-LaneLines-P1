@@ -1,4 +1,5 @@
-# **Finding Lane Lines on the Road** 
+# **Thanh Doan: Finding Lane Lines on the Road** 
+[![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
 
 The goals of this project are the following:
 * Implement a [pipeline](P1.ipynb) that finds lane lines on the road
@@ -209,10 +210,7 @@ yellow_clip = clip2.fl_image(process_image)
 yellow_clip.write_videofile(yellow_output, audio=False)
 ```
 
-<figure class="video_container">
-  <iframe src="https://www.youtube.com/watch?v=IKWfdrJ3A0M" frameborder="0" allowfullscreen="true">
-  </iframe>
-</figure>
+[![View the output video](https://img.youtube.com/vi/IKWfdrJ3A0M/0.jpg)](https://www.youtube.com/watch?v=IKWfdrJ3A0M)
 
 
 ## **Potential shortcomings with my current Pipeline**
