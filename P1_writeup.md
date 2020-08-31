@@ -1,5 +1,6 @@
-# **Thanh Doan: Finding Lane Lines on the Road** 
-[![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
+# <center> **Finding Lane Lines on the Road** </center> #
+### <center> *Thanh Doan* </center> ###
+---
 
 The goals of this project are the following:
 * Implement a [pipeline](P1.ipynb) that finds lane lines on the road
@@ -10,8 +11,8 @@ The goals of this project are the following:
 ## **Pipeline implementation**
 
 The **Pipeline** is implemented in [P1.ipynb](P1.ipynb) Jupyter notebook. 
-- The result of running Pipeline on 6 images from **test_images** input folder is store at **test_images_output**
-- The result of running Pipeline on 3 videos from **test_videos** input folder is store at **test_videos_output**
+- The result of running the Pipeline on 6 images from `test_images` input folder is stored at `test_images_output`
+- The result of running the Pipeline on 3 videos from `test_videos` input folder is stored at `test_videos_output`
 
 ## **Reflection**
 
@@ -191,7 +192,6 @@ The result of running the the **Pipeline** to process 6 input images inside **te
 
 ![Pipeline test output](six.png)
 
-
 The result of running the the **Pipeline** to process **test_videos/solidYellowLeft.mp4** as the input as below.
 
 ```python
@@ -213,13 +213,31 @@ yellow_clip.write_videofile(yellow_output, audio=False)
 
 ## **Potential shortcomings with my current Pipeline**
 
-One potential shortcoming would be what would happen when ... 
+The frame below, extracted from challenge.mp4, showed 2 shortcomings in my current Pipeline:
 
-Another shortcoming could be ...
+- First shortcoming with this pipeline: It does not deal with 'bad' roads containing horizontal lines, or marks. The pipeline picks up noisy horizontal line segments and use them to fit the slopes of the left and right lanes causing inaccuracy in lane drawing.
 
+- Second shortcoming with this pipeline: If the color of the road surface is too bright and lane lines are in yellow color, the pipeline (with embedded default Canny and Hough parameter values) does not work well.
+
+- **Shortcoming #1 example:** From challenge.mp4 video, a frame cut around 0:00:4 mark, as shown below, has horizontal segments between darker road surface and brighter surface caused the current pipeline trouble.    
+
+- **Shortcoming #2 example:** From the same frame cut shown below: When the procesing frame reaches brighter road surface section and left lane color is yellow... the current pipeline fails to work well because `first step` in the pipeline converts the image to grayscale and in grayscale image the left lane is almost indistinguishable.
+
+![Pipeline test output](challenge_0.jpg)
 
 ## **Possible improvements**
 
-A possible improvement would be to ...
+- A possible improvement for shortcoming #1, i.e. *discard noisy horizontal line segments*, is to compute the slope of Hough line segments and compute its moving average. The pipeline can identify noisy horizontal line segments when it found individual line segment slope deviates too much fron recent moving average.
 
-Another potential improvement could be to ...
+- An possible improvement for shortcoming #1, *discard noisy horizontal line segments*, is to code a special version of Canny Edge detector that produce only vertical edges from scratch. For example we can modify step #2 below and **only apply 1 convolution mask `Gx` in `x` direction** or modify step 3 to suppress horizontal edges using the **gradient direction θ** value computed from step 2.
+
+|Canny algorithm       | 
+---
+|![](canny.png)
+
+Source: https://docs.opencv.org/3.4/da/d5c/tutorial_canny_detector.html
+
+---
+
+- Another potential improvement for shortcoming #2 (*color of road surface is too bright and indistinguishable in grayscale from yellow lane lines*) is to process RGB images directly and NOT to convert them into grayscale in the pipeline then use color thresholds that work.
+
