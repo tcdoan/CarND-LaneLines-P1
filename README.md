@@ -231,13 +231,13 @@ The frame below, extracted from challenge.mp4, showed 2 shortcomings in my curre
 
 - An possible improvement for shortcoming #1, *discard noisy horizontal line segments*, is to code a special version of Canny Edge detector that produce only vertical edges from scratch. For example we can modify step #2 below and **only apply 1 convolution mask `Gx` in `x` direction** or modify step 3 to suppress horizontal edges using the **gradient direction θ** value computed from step 2.
 
-|Canny algorithm       | 
+Canny algorithm
 ---
-|![](canny.png)
+![](canny.png)
 
 Source: https://docs.opencv.org/3.4/da/d5c/tutorial_canny_detector.html
-
 ---
 
-- Another potential improvement for shortcoming #2 (*color of road surface is too bright and indistinguishable in grayscale from yellow lane lines*) is to process RGB images directly and NOT to convert them into grayscale in the pipeline then use color thresholds that work.
+- Another potential improvement for shortcoming #2 (*color of road surface is too bright and indistinguishable in grayscale from yellow lane lines*) is to process RGB images directly and NOT to convert them into grayscale in the pipeline then use RGB or HLS color thresholds that works with such images or frames. 
 
+- Another potential improvement for both shortcoming #1, #2 is to **programmatically change parameter values for Canny and Hough transforms** based on what frame comes from video or camera input stream. This improvement allows the pipeline to adapt to different types of road conditions by **searching the parameter space** to find `adaptable thresholds` values based on the surface of the road and actual lane lines per image/frame. In order to do this we need to come up with working metrics as stop search condition (e.g. gradient direction, max_line_len, min_line_gap). The paramater values for frame `n+1` should be quite close to paramater values for frame `n` so searching **parameter space** might be computational feasible with local nearby search only.
